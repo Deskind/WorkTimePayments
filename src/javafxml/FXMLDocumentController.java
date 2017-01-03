@@ -75,11 +75,19 @@ public class FXMLDocumentController implements Initializable {
         
             //Collect data from app form
             String date = datePicker.getValue().toString();
-            String beginString = String.valueOf(beginTime.getTime().toSecondOfDay());
-            String finishString = String.valueOf(finishTime.getTime().toSecondOfDay());
             String city = cityChoise.getValue();
-            String result = date + " " + beginTime.getTime().toString() + " " + finishTime.getTime().toString() + " " + city+ " " + String.valueOf((finishTime.getTime().toSecondOfDay())-(beginTime.getTime().toSecondOfDay())+ "\n");
+                //Calculate time
+                double beginDouble = (double)beginTime.getTime().toSecondOfDay();
+                double finishDouble = (double)finishTime.getTime().toSecondOfDay();
+                double resultDouble = (finishDouble-beginDouble)/60/60;
+                String resultString = String.valueOf(resultDouble);
+                //End
             //End
+            
+            //Make result string
+            String result = date + " " + beginTime.getTime().toString() + " " + finishTime.getTime().toString() + " " + city + " " + resultString + "\n";
+
+            //
             
             //Adding new line to existing text
             try {
