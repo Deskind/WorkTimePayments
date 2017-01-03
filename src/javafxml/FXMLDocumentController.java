@@ -6,14 +6,27 @@
 package javafxml;
 
 import com.jfoenix.controls.JFXDatePicker;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
@@ -41,6 +54,9 @@ public class FXMLDocumentController implements Initializable {
     private ChoiceBox<String> cityChoise;
     
     @FXML
+    private Button saveBtn;
+    
+    @FXML
     private void handleButtonAction(ActionEvent event) {
         //Substract begin time from finish time
         LocalTime begin = beginTime.getTime();
@@ -51,6 +67,27 @@ public class FXMLDocumentController implements Initializable {
         //End
         
         
+    }
+    
+    @FXML
+    void handleSaveBtn(ActionEvent event) {
+        
+        
+            //Collect data from app form
+            String date = datePicker.getValue().toString();
+            String beginString = String.valueOf(beginTime.getTime().toSecondOfDay());
+            String finishString = String.valueOf(finishTime.getTime().toSecondOfDay());
+            String city = cityChoise.getValue();
+            String result = date + " " + beginTime.getTime().toString() + " " + finishTime.getTime().toString() + " " + city+ " " + String.valueOf((finishTime.getTime().toSecondOfDay())-(beginTime.getTime().toSecondOfDay())+ "\n");
+            //End
+            
+            //Adding new line to existing text
+            try {
+            Files.write(Paths.get("work.txt"), result.getBytes(), StandardOpenOption.APPEND);
+            //End
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     @Override
