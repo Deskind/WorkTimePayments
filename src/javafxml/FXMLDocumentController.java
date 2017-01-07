@@ -25,10 +25,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -57,6 +63,15 @@ public class FXMLDocumentController implements Initializable {
     private Button saveBtn;
     
     @FXML
+    private Button newEntryBtn;
+    
+    @FXML
+    private Button ViewAllEntries;
+    
+    
+    
+    //Process CLICK ME button action
+    @FXML
     private void handleButtonAction(ActionEvent event) {
         //Substract begin time from finish time
         LocalTime begin = beginTime.getTime();
@@ -69,6 +84,7 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
+    //Process SAVE button
     @FXML
     void handleSaveBtn(ActionEvent event) {
         
@@ -96,12 +112,38 @@ public class FXMLDocumentController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            saveBtn.setDisable(true);
+    }
+    
+    //Process new entry btn
+    @FXML
+    void handleNewEntryBtn(ActionEvent event) {
+        saveBtn.setDisable(false);
+    }
+    
+    //Process view all entries button action
+    @FXML
+    void handleViewAllEntriesBtn(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AllEntries.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("All entries");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cityChoise.setValue("Минск");
         cityChoise.setItems(cities);
-    }    
+    } 
+    
+    
     
 }
