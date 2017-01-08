@@ -1,2 +1,17 @@
-2017-01-05 09:00 11:30 Климовичи 2.5
-2017-01-05 09:00 11:45 Краснополье 2.75
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<WorkUnits>
+    <WorkUnit>
+        <date>2017-01-05</date>
+        <city>Климовичи</city>
+        <beginTime>09:24</beginTime>
+        <finishTime>21:24</finishTime>
+        <totalTime>12.0</totalTime>
+    </WorkUnit>
+    <WorkUnit>
+        <date>2017-01-19</date>
+        <city>Костюковичи</city>
+        <beginTime>09:24</beginTime>
+        <finishTime>21:24</finishTime>
+        <totalTime>12.0</totalTime>
+    </WorkUnit>
+</WorkUnits>

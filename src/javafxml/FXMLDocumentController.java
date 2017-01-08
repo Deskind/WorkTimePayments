@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,55 +36,35 @@ import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+    import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
-/**
- *
- * @author AUTO
- */
 public class FXMLDocumentController implements Initializable {
     
     ObservableList<String> cities = FXCollections.observableArrayList("Климовичи", "Костюковичи", "Краснополье");
+    MarshallerManager marshallerManager = new MarshallerManager();
+    WorkUnits workUnits = new WorkUnits();
+    File file = new File("work.txt");
     
     @FXML
     private Label label;
-    
     @FXML
     private JFXDatePicker datePicker;
-    
     @FXML
     private JFXDatePicker beginTime;
-    
     @FXML
     private JFXDatePicker finishTime;
-    
     @FXML
     private ChoiceBox<String> cityChoise;
-    
     @FXML
     private Button saveBtn;
-    
     @FXML
     private Button newEntryBtn;
-    
     @FXML
     private Button ViewAllEntries;
-    
-    
-    
-    //Process CLICK ME button action
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        //Substract begin time from finish time
-        LocalTime begin = beginTime.getTime();
-        LocalTime finish = finishTime.getTime();
-        int beginSeconds = begin.toSecondOfDay();
-        int finishSeconds = finish.toSecondOfDay();
-        label.setText(Integer.toString((finishSeconds-beginSeconds)/60));
-        //End
-        
-        
-    }
-    
+
     //Process SAVE button
     @FXML
     void handleSaveBtn(ActionEvent event) {
@@ -92,27 +73,38 @@ public class FXMLDocumentController implements Initializable {
             //Collect data from app form
             String date = datePicker.getValue().toString();
             String city = cityChoise.getValue();
-                //Calculate time
+//              Calculate time
                 double beginDouble = (double)beginTime.getTime().toSecondOfDay();
                 double finishDouble = (double)finishTime.getTime().toSecondOfDay();
+                double totalTime = finishDouble - beginDouble;
                 double resultDouble = (finishDouble-beginDouble)/60/60;
                 String resultString = String.valueOf(resultDouble);
                 //End
             //End
             
-            //Make result string
-            String result = date + " " + beginTime.getTime().toString() + " " + finishTime.getTime().toString() + " " + city + " " + resultString + "\n";
-
-            //
-            
-            //Adding new line to existing text
-            try {
-            Files.write(Paths.get("work.txt"), result.getBytes(), StandardOpenOption.APPEND);
+            //Prepare an object and add it to list
+            WorkUnit workUnit = new WorkUnit(date, city, beginTime.getTime().toString(), finishTime.getTime().toString(), resultDouble);
             //End
-            } catch (IOException ex) {
+            
+            
+            try {
+                Unmarshaller unmarshaller = marshallerManager.getUnmarshaller();
+                workUnits = (WorkUnits)unmarshaller.unmarshal(file);
+                workUnits.getList().add(workUnit);
+                System.out.println(workUnits.getList().size());
+                
+                System.out.println(workUnits.getList().size());
+                Marshaller marshaller = marshallerManager.getMarshaller();
+                marshaller.marshal(workUnits, file);
+                marshaller.marshal(workUnits, System.out);
+            } catch (JAXBException ex) {
                 Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            
+            //Disable SAVE button
             saveBtn.setDisable(true);
+            //End
     }
     
     //Process new entry btn
