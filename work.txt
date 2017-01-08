@@ -14,4 +14,11 @@
         <finishTime>21:24</finishTime>
         <totalTime>12.0</totalTime>
     </WorkUnit>
+    <WorkUnit>
+        <date>2017-01-04</date>
+        <city>Климовичи</city>
+        <beginTime>00:32</beginTime>
+        <finishTime>20:32</finishTime>
+        <totalTime>20.0</totalTime>
+    </WorkUnit>
 </WorkUnits>

@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxml.AllEntriesController">
    <children>
-      <TableView fx:id="tableWithWorkItems" layoutX="171.0" layoutY="78.0" prefHeight="489.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-          <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
-          <TableColumn fx:id="beginTime" prefWidth="154.0" text="BeginTime" />
-            <TableColumn fx:id="finishTime" prefWidth="142.0" text="FinishTime" />
-            <TableColumn fx:id="city" prefWidth="97.0" text="City" />
-            <TableColumn fx:id="workedTime" prefWidth="131.0" text="WorkedTime" />
-        </columns>
-      </TableView>
+      <SplitPane dividerPositions="0.8973305954825462" layoutX="27.0" orientation="VERTICAL" prefHeight="489.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView fx:id="tableWithWorkItems" layoutX="-97.0" layoutY="3.0" prefHeight="240.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+                      <TableColumn fx:id="beginTime" prefWidth="154.0" text="BeginTime" />
+                        <TableColumn fx:id="finishTime" prefWidth="142.0" text="FinishTime" />
+                        <TableColumn fx:id="city" prefWidth="97.0" text="City" />
+                        <TableColumn fx:id="workedTime" prefWidth="131.0" text="WorkedTime" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.6644295302013423" layoutX="212.0" layoutY="-66.0" prefHeight="46.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="277.0">
+                           <children>
+                              <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email address" />
+                              <JFXTextField fx:id="emailAddressTextField" layoutX="175.0" layoutY="4.0" maxWidth="187.0" minWidth="187.0" prefHeight="29.0" prefWidth="187.0" promptText="enter email address" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="sendEmailButton" layoutX="57.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSendEmailButton" prefHeight="44.0" prefWidth="196.0" text="Send email" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

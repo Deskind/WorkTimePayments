@@ -5,21 +5,21 @@
  */
 package javafxml;
 
-import com.jfoenix.controls.JFXTextArea;
-import java.io.BufferedReader;
+import com.jfoenix.controls.JFXTextField;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -58,6 +58,17 @@ public class AllEntriesController implements Initializable {
     TableColumn<WorkUnit, String> city;
     @FXML
     TableColumn<WorkUnit, Double> workedTime;
+    
+    @FXML
+    private JFXTextField emailAddressTextField;
+    
+    @FXML
+    private Button sendEmailButton;
+
+    @FXML
+    void handleSendEmailButton(ActionEvent event) {
+        System.out.println("Email is gone!");
+    }
     
     final ObservableList<WorkUnit> list = FXCollections.observableArrayList(workUnits.getList());
     

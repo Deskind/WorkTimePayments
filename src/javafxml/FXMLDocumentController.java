@@ -36,9 +36,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-    import javax.xml.bind.Marshaller;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class FXMLDocumentController implements Initializable {
