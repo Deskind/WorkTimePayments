@@ -7,24 +7,26 @@ package javafxml;
 
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,13 +38,16 @@ import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.Unmarshaller;import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
+import org.json.JSONArray;
 
 public class FXMLDocumentController implements Initializable {
     
-    ObservableList<String> cities = FXCollections.observableArrayList("Климовичи", "Костюковичи", "Краснополье");
+    public static ObservableList<String> cities = FXCollections.observableArrayList("Minsk");
     MarshallerManager marshallerManager = new MarshallerManager();
     WorkUnits workUnits = new WorkUnits();
     File file = new File("work.txt");
@@ -72,7 +77,7 @@ public class FXMLDocumentController implements Initializable {
             //Collect data from app form
             String date = datePicker.getValue().toString();
             String city = cityChoise.getValue();
-//              Calculate time
+//              Calculate tim e
                 double beginDouble = (double)beginTime.getTime().toSecondOfDay();
                 double finishDouble = (double)finishTime.getTime().toSecondOfDay();
                 double totalTime = finishDouble - beginDouble;
@@ -129,8 +134,34 @@ public class FXMLDocumentController implements Initializable {
         }        
     }
     
+    @FXML
+    void handleAddCityButton(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddCity.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Add City");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("cities.txt"));
+            while(reader.readLine()!=null){
+                FXMLDocumentController.cities.add(reader.readLine());
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cityChoise.setValue("Минск");
         cityChoise.setItems(cities);
     } 

@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <WorkUnits>
     <WorkUnit>
-        <date>2017-01-05</date>
-        <city>Климовичи</city>
-        <beginTime>09:24</beginTime>
-        <finishTime>21:24</finishTime>
-        <totalTime>12.0</totalTime>
-    </WorkUnit>
-    <WorkUnit>
-        <date>2017-01-19</date>
-        <city>Костюковичи</city>
-        <beginTime>09:24</beginTime>
-        <finishTime>21:24</finishTime>
-        <totalTime>12.0</totalTime>
-    </WorkUnit>
-    <WorkUnit>
-        <date>2017-01-04</date>
-        <city>Климовичи</city>
-        <beginTime>00:32</beginTime>
-        <finishTime>20:32</finishTime>
-        <totalTime>20.0</totalTime>
+        <date>2017-01-01</date>
+        <city>Minsk</city>
+        <beginTime>10:17</beginTime>
+        <finishTime>13:17</finishTime>
+        <totalTime>3.0</totalTime>
     </WorkUnit>
 </WorkUnits>
